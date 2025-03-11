@@ -1,0 +1,1238 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/Enumerated-it/MORCHID-MARCHANT-/blob/main/docs/tutorials/qsimcirq.ipynb1\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "8M2lhf2RBGZj"
+      },
+      "source": [
+        "##### Copyright 2020 Google"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "cellView": "form",
+        "id": "FMqHt2UBBJzR"
+      },
+      "outputs": [],
+      "source": [
+        "#@title Licensed under the Apache License, Version 2.0 (the \"License\");\n",
+        "# you may not use this file except in compliance with the License.\n",
+        "# You may obtain a copy of the License at\n",
+        "#\n",
+        "# https://www.apache.org/licenses/LICENSE-2.0\n",
+        "#\n",
+        "# Unless required by applicable law or agreed to in writing, software\n",
+        "# distributed under the License is distributed on an \"AS IS\" BASIS,\n",
+        "# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n",
+        "# See the License for the specific language governing permissions and\n",
+        "# limitations under the License."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "curl \"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=GEMINI_API_KEY\" \\\n",
+        "-H 'Content-Type: application/json' \\\n",
+        "-X POST \\\n",
+        "-d '{\n",
+        "  \"contents\": [{\n",
+        "    \"parts\":[{\"text\": \"Explain how AI works\"}]\n",
+        "    }]\n",
+        "   }'"
+      ],
+      "metadata": {
+        "id": "i7yaH1UfELrL",
+        "outputId": "8da5e241-e3e1-4f3b-9aeb-897c3b6e5555",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 106
+        }
+      },
+      "execution_count": 2,
+      "outputs": [
+        {
+          "output_type": "error",
+          "ename": "SyntaxError",
+          "evalue": "unterminated string literal (detected at line 4) (<ipython-input-2-a69b5dcc8e2f>, line 4)",
+          "traceback": [
+            "\u001b[0;36m  File \u001b[0;32m\"<ipython-input-2-a69b5dcc8e2f>\"\u001b[0;36m, line \u001b[0;32m4\u001b[0m\n\u001b[0;31m    -d '{\u001b[0m\n\u001b[0m       ^\u001b[0m\n\u001b[0;31mSyntaxError\u001b[0m\u001b[0;31m:\u001b[0m unterminated string literal (detected at line 4)\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "{\n",
+        "  \"customer_data\": {\n",
+        "    \"customer_type\": \"MERCHANT\",\n",
+        "    \"person_details\": {\n",
+        "      \"email_address\": \"customer@example.com\",\n",
+        "      \"name\": {\n",
+        "        \"prefix\": \"Mr.\",\n",
+        "        \"given_name\": \"Shashank\",\n",
+        "        \"surname\": \"Wankhede\",\n",
+        "        \"middle_name\": \"Govind\"\n",
+        "      },\n",
+        "      \"phone_contacts\": [\n",
+        "        {\n",
+        "          \"phone_number_details\": {\n",
+        "            \"country_code\": \"91\",\n",
+        "            \"national_number\": \"9740216087\"\n",
+        "          },\n",
+        "          \"phone_type\": \"HOME\"\n",
+        "        }\n",
+        "      ],\n",
+        "      \"home_address\": {\n",
+        "        \"line1\": \"11, outer ring road\",\n",
+        "        \"state\": \"Karnataka\",\n",
+        "        \"city\": \"Bangalore\",\n",
+        "        \"country_code\": \"IN\",\n",
+        "        \"postal_code\": \"560103\"\n",
+        "      },\n",
+        "      \"date_of_birth\": {\n",
+        "        \"event_type\": \"BIRTH\",\n",
+        "        \"event_date\": \"1987-12-29T23:59:59.999Z\"\n",
+        "      },\n",
+        "      \"nationality_country_code\": \"IN\",\n",
+        "      \"identity_documents\": [\n",
+        "        {\n",
+        "          \"type\": \"SOCIAL_SECURITY_NUMBER\",\n",
+        "          \"value\": \"ABCDEF34646\",\n",
+        "          \"partial_value\": false,\n",
+        "          \"issuer_country_code\": \"US\"\n",
+        "        }\n",
+        "      ]\n",
+        "    },\n",
+        "    \"business_details\": {\n",
+        "      \"phone_contacts\": [\n",
+        "        {\n",
+        "          \"phone_number_details\": {\n",
+        "            \"country_code\": \"91\",\n",
+        "            \"national_number\": \"9740216087\"\n",
+        "          },\n",
+        "          \"phone_type\": \"FAX\"\n",
+        "        }\n",
+        "      ],\n",
+        "      \"business_address\": {\n",
+        "        \"line1\": \"11, outer ring road\",\n",
+        "        \"state\": \"Karnataka\",\n",
+        "        \"city\": \"Bangalore\",\n",
+        "        \"country_code\": \"IN\",\n",
+        "        \"postal_code\": \"560103\"\n",
+        "      },\n",
+        "      \"business_type\": \"PROPRIETORSHIP\",\n",
+        "      \"category\": \"1004\",\n",
+        "      \"sub_category\": \"2025\",\n",
+        "      \"merchant_category_code\": \"8931\",\n",
+        "      \"names\": [\n",
+        "        {\n",
+        "          \"type\": \"LEGAL\",\n",
+        "          \"name\": \"SHASHANK STORE\"\n",
+        "        }\n",
+        "      ],\n",
+        "      \"business_description\": \"Arts and handicrafts\",\n",
+        "      \"event_dates\": [\n",
+        "        {\n",
+        "          \"event_type\": \"ESTABLISHED\",\n",
+        "          \"event_date\": \"2009-01-31T13:59:45Z\"\n",
+        "        }\n",
+        "      ],\n",
+        "      \"website_urls\": [\n",
+        "        \"https://example.com/mystore/\"\n",
+        "      ],\n",
+        "      \"annual_sales_volume_range\": {\n",
+        "        \"minimum_amount\": {\n",
+        "          \"currency\": \"USD\",\n",
+        "          \"value\": \"2000\"\n",
+        "        },\n",
+        "        \"maximum_amount\": {\n",
+        "          \"currency\": \"USD\",\n",
+        "          \"value\": \"3000\"\n",
+        "        }\n",
+        "      },\n",
+        "      \"average_monthly_volume_range\": {},\n",
+        "      \"identity_documents\": [\n",
+        "        {\n",
+        "          \"type\": \"TAX_IDENTIFICATION_NUMBER\",\n",
+        "          \"value\": \"ABCDEF34646\",\n",
+        "          \"partial_value\": false,\n",
+        "          \"issuer_country_code\": \"US\"\n",
+        "        }\n",
+        "      ],\n",
+        "      \"email_contacts\": [\n",
+        "        {\n",
+        "          \"email_address\": \"customer-service@example.com\",\n",
+        "          \"role\": \"CUSTOMER_SERVICE\"\n",
+        "        }\n",
+        "      ]\n",
+        "    },\n",
+        "    \"financial_instrument_data\": {},\n",
+        "    \"preferred_language_code\": \"en_US\",\n",
+        "    \"primary_currency_code\": \"USD\",\n",
+        "    \"referral_user_payer_id\": {\n",
+        "      \"type\": \"PAYER_ID\",\n",
+        "      \"value\": \"RFYUH2QQDGUQU\"\n",
+        "    },\n",
+        "    \"partner_specific_identifiers\": [\n",
+        "      {\n",
+        "        \"type\": \"TRACKING_ID\",\n",
+        "        \"value\": \"ABJSDFO343SD\"\n",
+        "      }\n",
+        "    ]\n",
+        "  },\n",
+        "  \"requested_capabilities\": [\n",
+        "    {\n",
+        "      \"capability\": \"API_INTEGRATION\",\n",
+        "      \"api_integration_preference\": {\n",
+        "        \"partner_id\": \"RFYUH2QQDGUQU\",\n",
+        "        \"classic_api_integration_type\": \"THIRD_PARTY\",\n",
+        "        \"classic_third_party_details\": {\n",
+        "          \"permission_list\": [\n",
+        "            \"EXPRESS_CHECKOUT\",\n",
+        "            \"DIRECT_PAYMENT\",\n",
+        "            \"AUTH_CAPTURE\",\n",
+        "            \"BUTTON_MANAGER\"\n",
+        "          ]\n",
+        "        }\n",
+        "      }\n",
+        "    },\n",
+        "    {\n",
+        "      \"capability\": \"BANK_ADDITION\"\n",
+        "    }\n",
+        "  ],\n",
+        "  \"web_experience_preference\": {\n",
+        "    \"partner_logo_url\": \"https://example.com/logo/\",\n",
+        "    \"return_url\": \"https://example.com/\",\n",
+        "    \"action_renewal_url\": \"https://example.com/renew/\"\n",
+        "  },\n",
+        "  \"collected_consents\": [\n",
+        "    {\n",
+        "      \"type\": \"SHARE_DATA_CONSENT\",\n",
+        "      \"granted\": true\n",
+        "    }\n",
+        "  ],\n",
+        "  \"products\": [\n",
+        "    \"EXPRESS_CHECKOUT\"\n",
+        "  ]\n",
+        "}"
+      ],
+      "metadata": {
+        "id": "gCUuKAD8EdZa",
+        "outputId": "1111f795-a5fb-4078-a25a-e0d06363276a",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 211
+        }
+      },
+      "execution_count": 5,
+      "outputs": [
+        {
+          "output_type": "error",
+          "ename": "NameError",
+          "evalue": "name 'false' is not defined",
+          "traceback": [
+            "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+            "\u001b[0;31mNameError\u001b[0m                                 Traceback (most recent call last)",
+            "\u001b[0;32m<ipython-input-5-edb692c4fc79>\u001b[0m in \u001b[0;36m<cell line: 0>\u001b[0;34m()\u001b[0m\n\u001b[1;32m     35\u001b[0m           \u001b[0;34m\"type\"\u001b[0m\u001b[0;34m:\u001b[0m \u001b[0;34m\"SOCIAL_SECURITY_NUMBER\"\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     36\u001b[0m           \u001b[0;34m\"value\"\u001b[0m\u001b[0;34m:\u001b[0m \u001b[0;34m\"ABCDEF34646\"\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m---> 37\u001b[0;31m           \u001b[0;34m\"partial_value\"\u001b[0m\u001b[0;34m:\u001b[0m \u001b[0mfalse\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m     38\u001b[0m           \u001b[0;34m\"issuer_country_code\"\u001b[0m\u001b[0;34m:\u001b[0m \u001b[0;34m\"US\"\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     39\u001b[0m         }\n",
+            "\u001b[0;31mNameError\u001b[0m: name 'false' is not defined"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "{\n",
+        "  \"customer_data\": {\n",
+        "    \"customer_type\": \"MERCHANT\",\n",
+        "    \"person_details\": {\n",
+        "      \"email_address\": \"customer@example.com\",\n",
+        "      \"name\": {\n",
+        "        \"prefix\": \"Mr.\",\n",
+        "        \"given_name\": \"Shashank\",\n",
+        "        \"surname\": \"Wankhede\",\n",
+        "        \"middle_name\": \"Govind\"\n",
+        "      },\n",
+        "      \"phone_contacts\": [\n",
+        "        {\n",
+        "          \"phone_number_details\": {\n",
+        "            \"country_code\": \"91\",\n",
+        "            \"national_number\": \"9740216087\"\n",
+        "          },\n",
+        "          \"phone_type\": \"HOME\"\n",
+        "        }\n",
+        "      ],\n",
+        "      \"home_address\": {\n",
+        "        \"line1\": \"11, outer ring road\",\n",
+        "        \"state\": \"Karnataka\",\n",
+        "        \"city\": \"Bangalore\",\n",
+        "        \"country_code\": \"IN\",\n",
+        "        \"postal_code\": \"560103\"\n",
+        "      },\n",
+        "      \"date_of_birth\": {\n",
+        "        \"event_type\": \"BIRTH\",\n",
+        "        \"event_date\": \"1987-12-29T23:59:59.999Z\"\n",
+        "      },\n",
+        "      \"nationality_country_code\": \"IN\",\n",
+        "      \"identity_documents\": [\n",
+        "        {\n",
+        "          \"type\": \"SOCIAL_SECURITY_NUMBER\",\n",
+        "          \"value\": \"ABCDEF34646\",\n",
+        "          \"partial_value\": False, # Changed false to False\n",
+        "          \"issuer_country_code\": \"US\"\n",
+        "        }\n",
+        "{\n",
+        "  \"customer_data\": {\n",
+        "    \"customer_type\": \"MERCHANT\",\n",
+        "    \"person_details\": {\n",
+        "      \"email_address\": \"customer@example.com\",\n",
+        "      \"name\": {\n",
+        "        \"prefix\": \"Mr.\",\n",
+        "        \"given_name\": \"Shashank\",\n",
+        "        \"surname\": \"Wankhede\",\n",
+        "        \"middle_name\": \"Govind\"\n",
+        "      },\n",
+        "      \"phone_contacts\": [\n",
+        "        {\n",
+        "          \"phone_number_details\": {\n",
+        "            \"country_code\": \"91\",\n",
+        "            \"national_number\": \"9740216087\"\n",
+        "          },\n",
+        "          \"phone_type\": \"HOME\"\n",
+        "        }\n",
+        "      ],\n",
+        "      \"home_address\": {\n",
+        "        \"line1\": \"11, outer ring road\",\n",
+        "        \"state\": \"Karnataka\",\n",
+        "        \"city\": \"Bangalore\",\n",
+        "        \"country_code\": \"IN\",\n",
+        "        \"postal_code\": \"560103\"\n",
+        "      },\n",
+        "      \"date_of_birth\": {\n",
+        "        \"event_type\": \"BIRTH\",\n",
+        "        \"event_date\": \"1987-12-29T23:59:59.999Z\"\n",
+        "      },\n",
+        "      \"nationality_country_code\": \"IN\",\n",
+        "      \"identity_documents\": [\n",
+        "        {\n",
+        "          \"type\": \"SOCIAL_SECURITY_NUMBER\",\n",
+        "          \"value\": \"ABCDEF34646\",\n",
+        "          \"partial_value\": False,\n",
+        "          \"issuer_country_code\": \"US\"\n",
+        "        }\n",
+        "      ]\n",
+        "    },\n",
+        "    \"business_details\": {\n",
+        "    }\n",
+        "  }\n",
+        "}"
+      ],
+      "metadata": {
+        "id": "XRnMsniwErYt"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "{\n",
+        "  \"customer_data\": {\n",
+        "    \"customer_type\": \"MERCHANT\",\n",
+        "    \"person_details\": {\n",
+        "      \"email_address\": \"customer@example.com\",\n",
+        "      \"name\": {\n",
+        "        \"prefix\": \"Mr.\",\n",
+        "        \"given_name\": \"Shashank\",\n",
+        "        \"surname\": \"Wankhede\",\n",
+        "        \"middle_name\": \"Govind\"\n",
+        "      },\n",
+        "      \"phone_contacts\": [\n",
+        "        {\n",
+        "          \"phone_number_details\": {\n",
+        "            \"country_code\": \"91\",\n",
+        "            \"national_number\": \"9740216087\"\n",
+        "          },\n",
+        "          \"phone_type\": \"HOME\"\n",
+        "        }\n",
+        "      ],\n",
+        "      \"home_address\": {\n",
+        "        \"line1\": \"11, outer ring road\",\n",
+        "        \"state\": \"Karnataka\",\n",
+        "        \"city\": \"Bangalore\",\n",
+        "        \"country_code\": \"IN\",\n",
+        "        \"postal_code\": \"560103\"\n",
+        "      },\n",
+        "      \"date_of_birth\": {\n",
+        "        \"event_type\": \"BIRTH\",\n",
+        "        \"event_date\": \"1987-12-29T23:59:59.999Z\"\n",
+        "      },\n",
+        "      \"nationality_country_code\": \"IN\",\n",
+        "      \"identity_documents\": [\n",
+        "        {\n",
+        "          \"type\": \"SOCIAL_SECURITY_NUMBER\",\n",
+        "          \"value\": \"ABCDEF34646\",\n",
+        "          \"partial_value\": False,\n",
+        "          \"issuer_country_code\": \"US\"\n",
+        "        }\n",
+        "      ]\n",
+        "    },\n",
+        "    \"business_details\": {  # Start of business_details\n",
+        "      \"phone_contacts\": [\n",
+        "        {\n",
+        "          \"phone_number_details\": {\n",
+        "            \"country_code\": \"91\",\n",
+        "            \"national_number\": \"9740216087\"\n",
+        "          },\n",
+        "          \"phone_type\": \"FAX\"  # Assuming this is the business fax number\n",
+        "        }\n"
+      ],
+      "metadata": {
+        "id": "YNcxvJwBFNbJ",
+        "outputId": "90282f4d-7b3f-4e46-828c-3c4f66697a63",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 106
+        }
+      },
+      "execution_count": 3,
+      "outputs": [
+        {
+          "output_type": "error",
+          "ename": "SyntaxError",
+          "evalue": "incomplete input (<ipython-input-3-a320f9b7e008>, line 50)",
+          "traceback": [
+            "\u001b[0;36m  File \u001b[0;32m\"<ipython-input-3-a320f9b7e008>\"\u001b[0;36m, line \u001b[0;32m50\u001b[0m\n\u001b[0;31m    }\u001b[0m\n\u001b[0m     ^\u001b[0m\n\u001b[0;31mSyntaxError\u001b[0m\u001b[0;31m:\u001b[0m incomplete input\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import json\n",
+        "\n",
+        "data = json.loads( '''\n",
+        "{\n",
+        "  \"customer_data\": {\n",
+        "    \"customer_type\": \"MERCHANT\",\n",
+        "    # ... (rest of your JSON data here) ...\n",
+        "  }\n",
+        "}\n",
+        "''')\n",
+        "\n",
+        "# Now you can access elements of the data:\n",
+        "print(data[\"customer_data\"][\"customer_type\"])  # Output: MERCHANT"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 391
+        },
+        "id": "7tpgl8MiHYoc",
+        "outputId": "9a70c489-c097-4bc9-8581-f33409dcc131"
+      },
+      "execution_count": 6,
+      "outputs": [
+        {
+          "output_type": "error",
+          "ename": "JSONDecodeError",
+          "evalue": "Expecting property name enclosed in double quotes: line 5 column 5 (char 61)",
+          "traceback": [
+            "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+            "\u001b[0;31mJSONDecodeError\u001b[0m                           Traceback (most recent call last)",
+            "\u001b[0;32m<ipython-input-6-27b15e331557>\u001b[0m in \u001b[0;36m<cell line: 0>\u001b[0;34m()\u001b[0m\n\u001b[1;32m      1\u001b[0m \u001b[0;32mimport\u001b[0m \u001b[0mjson\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      2\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m----> 3\u001b[0;31m data = json.loads( '''\n\u001b[0m\u001b[1;32m      4\u001b[0m {\n\u001b[1;32m      5\u001b[0m   \"customer_data\": {\n",
+            "\u001b[0;32m/usr/lib/python3.11/json/__init__.py\u001b[0m in \u001b[0;36mloads\u001b[0;34m(s, cls, object_hook, parse_float, parse_int, parse_constant, object_pairs_hook, **kw)\u001b[0m\n\u001b[1;32m    344\u001b[0m             \u001b[0mparse_int\u001b[0m \u001b[0;32mis\u001b[0m \u001b[0;32mNone\u001b[0m \u001b[0;32mand\u001b[0m \u001b[0mparse_float\u001b[0m \u001b[0;32mis\u001b[0m \u001b[0;32mNone\u001b[0m \u001b[0;32mand\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    345\u001b[0m             parse_constant is None and object_pairs_hook is None and not kw):\n\u001b[0;32m--> 346\u001b[0;31m         \u001b[0;32mreturn\u001b[0m \u001b[0m_default_decoder\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mdecode\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0ms\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    347\u001b[0m     \u001b[0;32mif\u001b[0m \u001b[0mcls\u001b[0m \u001b[0;32mis\u001b[0m \u001b[0;32mNone\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    348\u001b[0m         \u001b[0mcls\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mJSONDecoder\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;32m/usr/lib/python3.11/json/decoder.py\u001b[0m in \u001b[0;36mdecode\u001b[0;34m(self, s, _w)\u001b[0m\n\u001b[1;32m    335\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    336\u001b[0m         \"\"\"\n\u001b[0;32m--> 337\u001b[0;31m         \u001b[0mobj\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mend\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mraw_decode\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0ms\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0midx\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0m_w\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0ms\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;36m0\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mend\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    338\u001b[0m         \u001b[0mend\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0m_w\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0ms\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mend\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mend\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    339\u001b[0m         \u001b[0;32mif\u001b[0m \u001b[0mend\u001b[0m \u001b[0;34m!=\u001b[0m \u001b[0mlen\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0ms\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;32m/usr/lib/python3.11/json/decoder.py\u001b[0m in \u001b[0;36mraw_decode\u001b[0;34m(self, s, idx)\u001b[0m\n\u001b[1;32m    351\u001b[0m         \"\"\"\n\u001b[1;32m    352\u001b[0m         \u001b[0;32mtry\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--> 353\u001b[0;31m             \u001b[0mobj\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mend\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mscan_once\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0ms\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0midx\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    354\u001b[0m         \u001b[0;32mexcept\u001b[0m \u001b[0mStopIteration\u001b[0m \u001b[0;32mas\u001b[0m \u001b[0merr\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    355\u001b[0m             \u001b[0;32mraise\u001b[0m \u001b[0mJSONDecodeError\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m\"Expecting value\"\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0ms\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0merr\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mvalue\u001b[0m\u001b[0;34m)\u001b[0m \u001b[0;32mfrom\u001b[0m \u001b[0;32mNone\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;31mJSONDecodeError\u001b[0m: Expecting property name enclosed in double quotes: line 5 column 5 (char 61)"
+          ]
+        }
+      ]
+    },
+    {
+      "source": [
+        "import json\n",
+        "\n",
+        "data = json.loads('''\n",
+        "{\n",
+        "  \"customer_data\": {\n",
+        "    \"customer_type\": \"MERCHANT\",\n",
+        "    # ... (reste de vos données JSON ici) ...\n",
+        "  }\n",
+        "}\n",
+        "'''.replace('false', 'False'))  # Remplacer false par False\n",
+        "\n",
+        "\n",
+        "# Vous pouvez maintenant accéder aux éléments des données :\n",
+        "print(data[\"customer_data\"][\"customer_type\"])  # Affiche : MERCHANT"
+      ],
+      "cell_type": "code",
+      "metadata": {
+        "id": "e1eE3hScH1kz"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "vAx5g2rPnlzt"
+      },
+      "source": [
+        "# Get started with qsimcirq"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "5jqw8k0zBsb-"
+      },
+      "source": [
+        "<table class=\"tfo-notebook-buttons\" align=\"left\">\n",
+        "  <td>\n",
+        "    <a target=\"_blank\" href=\"https://quantumai.google/qsim/tutorials/qsimcirq\"><img src=\"https://quantumai.google/site-assets/images/buttons/quantumai_logo_1x.png\" />View on QuantumAI</a>\n",
+        "  </td>\n",
+        "  <td>\n",
+        "    <a target=\"_blank\" href=\"https://colab.research.google.com/github/quantumlib/qsim/blob/master/docs/tutorials/qsimcirq.ipynb\"><img src=\"https://quantumai.google/site-assets/images/buttons/colab_logo_1x.png\" />Run in Google Colab</a>\n",
+        "  </td>\n",
+        "  <td>\n",
+        "    <a target=\"_blank\" href=\"https://github.com/quantumlib/qsim/blob/master/docs/tutorials/qsimcirq.ipynb\"><img src=\"https://quantumai.google/site-assets/images/buttons/github_logo_1x.png\" />View source on GitHub</a>\n",
+        "  </td>\n",
+        "  <td>\n",
+        "    <a href=\"https://storage.googleapis.com/tensorflow_docs/qsim/docs/tutorials/qsimcirq.ipynb\"><img src=\"https://quantumai.google/site-assets/images/buttons/download_icon_1x.png\" />Download notebook</a>\n",
+        "  </td>\n",
+        "</table>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "VgdpPfgTCjQB"
+      },
+      "source": [
+        "The qsim library provides a Python interface to Cirq in the **qsimcirq** PyPI package."
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "8vr-44j-Csxf"
+      },
+      "source": [
+        "## Setup\n",
+        "\n",
+        "Install the Cirq and qsimcirq packages:"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "XcAhsIQdivnp"
+      },
+      "outputs": [],
+      "source": [
+        "try:\n",
+        "    import cirq\n",
+        "except ImportError:\n",
+        "    !pip install cirq --quiet\n",
+        "    import cirq\n",
+        "\n",
+        "try:\n",
+        "    import qsimcirq\n",
+        "except ImportError:\n",
+        "    !pip install qsimcirq --quiet\n",
+        "    import qsimcirq"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "7lYC4qxpDKMN"
+      },
+      "source": [
+        "Simulating Cirq circuits with qsim is easy: just define the circuit as you normally would, then create a `QSimSimulator` to perform the simulation. This object implements Cirq's [simulator.py](https://github.com/quantumlib/Cirq/blob/master/cirq-core/cirq/sim/simulator.py) interfaces, so you can drop it in anywhere the basic Cirq simulator is used."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import json\n",
+        "\n",
+        "data = json.loads('''\n",
+        "{\n",
+        "  \"customer_data\": {\n",
+        "    \"customer_type\": \"MERCHANT\",\n",
+        "    \"person_details\": {\n",
+        "      \"email_address\": \"customer@example.com\",\n",
+        "      \"name\": {\n",
+        "        \"prefix\": \"Mr.\",\n",
+        "        \"given_name\": \"Shashank\",\n",
+        "        \"surname\": \"Wankhede\",\n",
+        "        \"middle_name\": \"Govind\"\n",
+        "      },\n",
+        "      \"phone_contacts\": [\n",
+        "        {\n",
+        "          \"phone_number_details\": {\n",
+        "            \"country_code\": \"91\",\n",
+        "            \"national_number\": \"9740216087\"\n",
+        "          },\n",
+        "          \"phone_type\": \"HOME\"\n",
+        "        }\n",
+        "      ],\n",
+        "      \"home_address\": {\n",
+        "        \"line1\": \"11, outer ring road\",\n",
+        "        \"state\": \"Karnataka\",\n",
+        "        \"city\": \"Bangalore\",\n",
+        "        \"country_code\": \"IN\",\n",
+        "        \"postal_code\": \"560103\"\n",
+        "      },\n",
+        "      \"date_of_birth\": {\n",
+        "        \"event_type\": \"BIRTH\",\n",
+        "        \"event_date\": \"1987-12-29T23:59:59.999Z\"\n",
+        "      },\n",
+        "      \"nationality_country_code\": \"IN\",\n",
+        "      \"identity_documents\": [\n",
+        "        {\n",
+        "          \"type\": \"SOCIAL_SECURITY_NUMBER\",\n",
+        "          \"value\": \"ABCDEF34646\",\n",
+        "          \"partial_value\": false,\n",
+        "          \"issuer_country_code\": \"US\"\n",
+        "        }\n",
+        "      ]\n",
+        "    },\n",
+        "    \"business_details\": {\n",
+        "      \"phone_contacts\": [\n",
+        "        {\n",
+        "          \"phone_number_details\": {\n",
+        "            \"country_code\": \"91\",\n",
+        "            \"national_number\": \"9740216087\"\n",
+        "          },\n",
+        "          \"phone_type\": \"FAX\"\n",
+        "        }\n",
+        "      ],\n",
+        "      \"business_address\": {\n",
+        "        \"line1\": \"11, outer ring road\",\n",
+        "        \"state\": \"Karnataka\",\n",
+        "        \"city\": \"Bangalore\",\n",
+        "        \"country_code\": \"IN\",\n",
+        "        \"postal_code\": \"560103\"\n",
+        "      },\n",
+        "      \"business_type\": \"PROPRIETORSHIP\",\n",
+        "      \"category\": \"1004\",\n",
+        "      \"sub_category\": \"2025\",\n",
+        "      \"merchant_category_code\": \"8931\",\n",
+        "      \"names\": [\n",
+        "        {\n",
+        "          \"type\": \"LEGAL\",\n",
+        "          \"name\": \"SHASHANK STORE\"\n",
+        "        }\n",
+        "      ],\n",
+        "      \"business_description\": \"Arts and handicrafts\",\n",
+        "      \"event_dates\": [\n",
+        "        {\n",
+        "          \"event_type\": \"ESTABLISHED\",\n",
+        "          \"event_date\": \"2009-01-31T13:59:45Z\"\n",
+        "        }\n",
+        "      ],\n",
+        "      \"website_urls\": [\n",
+        "        \"https://example.com/mystore/\"\n",
+        "      ],\n",
+        "      \"annual_sales_volume_range\": {\n",
+        "        \"minimum_amount\": {\n",
+        "          \"currency\": \"USD\",\n",
+        "          \"value\": \"2000\"\n",
+        "        },\n",
+        "        \"maximum_amount\": {\n",
+        "          \"currency\": \"USD\",\n",
+        "          \"value\": \"3000\"\n",
+        "        }\n",
+        "      },\n",
+        "      \"average_monthly_volume_range\": {},\n",
+        "      \"identity_documents\": [\n",
+        "        {\n",
+        "          \"type\": \"TAX_IDENTIFICATION_NUMBER\",\n",
+        "          \"value\": \"ABCDEF34646\",\n",
+        "          \"partial_value\": false,\n",
+        "          \"issuer_country_code\": \"US\"\n",
+        "        }\n",
+        "      ],\n",
+        "      \"email_contacts\": [\n",
+        "        {\n",
+        "          \"email_address\": \"customer-service@example.com\",\n",
+        "          \"role\": \"CUSTOMER_SERVICE\"\n",
+        "        }\n",
+        "      ]\n",
+        "    },\n",
+        "    \"financial_instrument_data\": {},\n",
+        "    \"preferred_language_code\": \"en_US\",\n",
+        "    \"primary_currency_code\": \"USD\",\n",
+        "    \"referral_user_payer_id\": {\n",
+        "      \"type\": \"PAYER_ID\",\n",
+        "      \"value\": \"RFYUH2QQDGUQU\"\n",
+        "    },\n",
+        "    \"partner_specific_identifiers\": [\n",
+        "      {\n",
+        "        \"type\": \"TRACKING_ID\",\n",
+        "        \"value\": \"ABJSDFO343SD\"\n",
+        "      }\n",
+        "    ]\n",
+        "  },\n",
+        "  \"requested_capabilities\": [\n",
+        "    {\n",
+        "      \"capability\": \"API_INTEGRATION\",\n",
+        "      \"api_integration_preference\": {\n",
+        "        \"partner_id\": \"RFYUH2QQDGUQU\",\n",
+        "        \"classic_api_integration_type\": \"THIRD_PARTY\",\n",
+        "        \"classic_third_party_details\": {\n",
+        "          \"permission_list\": [\n",
+        "            \"EXPRESS_CHECKOUT\",\n",
+        "            \"DIRECT_PAYMENT\",\n",
+        "            \"AUTH_CAPTURE\",\n",
+        "            \"BUTTON_MANAGER\"\n",
+        "          ]\n",
+        "        }\n",
+        "      }\n",
+        "    },\n",
+        "    {\n",
+        "      \"capability\": \"BANK_ADDITION\"\n",
+        "    }\n",
+        "  ],\n",
+        "  \"web_experience_preference\": {\n",
+        "    \"partner_logo_url\": \"https://example.com/logo/\",\n",
+        "    \"return_url\": \"https://example.com/\",\n",
+        "    \"action_renewal_url\": \"https://example.com/renew/\"\n",
+        "  },\n",
+        "  \"collected_consents\": [\n",
+        "    {\n",
+        "      \"type\": \"SHARE_DATA_CONSENT\",\n",
+        "      \"granted\": true\n",
+        "    }\n",
+        "  ],\n",
+        "  \"products\": [\n",
+        "    \"EXPRESS_CHECKOUT\"\n",
+        "  ]\n",
+        "}\n",
+        "''')\n",
+        "\n",
+        "# Vous pouvez maintenant accéder aux éléments des données :\n",
+        "print(data[\"customer_data\"][\"customer_type\"])  # Affiche : MERCHANT"
+      ],
+      "metadata": {
+        "id": "Mof7Vp_3KW-J"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "FXytmQlBoeTT"
+      },
+      "source": [
+        "## Full state-vector simulation\n",
+        "\n",
+        "qsim is optimized for computing the final state vector of a circuit. Try it by running the example below."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "jd8DaJMbjkCM"
+      },
+      "outputs": [],
+      "source": [
+        "# Define qubits and a short circuit.\n",
+        "q0, q1 = cirq.LineQubit.range(2)\n",
+        "circuit = cirq.Circuit(cirq.H(q0), cirq.CX(q0, q1))\n",
+        "print(\"Circuit:\")\n",
+        "print(circuit)\n",
+        "print()\n",
+        "\n",
+        "# Simulate the circuit with Cirq and return the full state vector.\n",
+        "print('Cirq results:')\n",
+        "cirq_simulator = cirq.Simulator()\n",
+        "cirq_results = cirq_simulator.simulate(circuit)\n",
+        "print(cirq_results)\n",
+        "print()\n",
+        "\n",
+        "# Simulate the circuit with qsim and return the full state vector.\n",
+        "print('qsim results:')\n",
+        "qsim_simulator = qsimcirq.QSimSimulator()\n",
+        "qsim_results = qsim_simulator.simulate(circuit)\n",
+        "print(qsim_results)"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "-kyXlKujtZcp"
+      },
+      "source": [
+        "To sample from this state, you can invoke Cirq's `sample_state_vector` method:"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "-m6uzQ6ms9I7"
+      },
+      "outputs": [],
+      "source": [
+        "samples = cirq.sample_state_vector(\n",
+        "    qsim_results.state_vector(), indices=[0, 1], repetitions=10)\n",
+        "print(samples)"
+      ]
+    },
+    {
+      "source": [
+        "{\n",
+        "  \"customer_data\": {\n",
+        "    \"customer_type\": \"MERCHANT\",\n",
+        "    # ... d'autres données ...\n",
+        "  }\n",
+        "}"
+      ],
+      "cell_type": "code",
+      "metadata": {
+        "id": "xVnCJ65MLAcK"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "pOhybi46sHwI"
+      },
+      "source": [
+        "## Measurement sampling\n",
+        "\n",
+        "qsim also supports sampling from user-defined measurement gates.\n",
+        "\n",
+        "> *Note*: Since qsim and Cirq use different random number generators, identical runs on both simulators may give different results, even if they use the same seed."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "NRJvtqYrnylJ"
+      },
+      "outputs": [],
+      "source": [
+        "# Define a circuit with measurements.\n",
+        "q0, q1 = cirq.LineQubit.range(2)\n",
+        "circuit = cirq.Circuit(\n",
+        "    cirq.H(q0), cirq.X(q1), cirq.CX(q0, q1),\n",
+        "    cirq.measure(q0, key='qubit_0'),\n",
+        "    cirq.measure(q1, key='qubit_1'),\n",
+        ")\n",
+        "print(\"Circuit:\")\n",
+        "print(circuit)\n",
+        "print()\n",
+        "\n",
+        "# Simulate the circuit with Cirq and return just the measurement values.\n",
+        "print('Cirq results:')\n",
+        "cirq_simulator = cirq.Simulator()\n",
+        "cirq_results = cirq_simulator.run(circuit, repetitions=5)\n",
+        "print(cirq_results)\n",
+        "print()\n",
+        "\n",
+        "# Simulate the circuit with qsim and return just the measurement values.\n",
+        "print('qsim results:')\n",
+        "qsim_simulator = qsimcirq.QSimSimulator()\n",
+        "qsim_results = qsim_simulator.run(circuit, repetitions=5)\n",
+        "print(qsim_results)"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "6NoSr0E_wgR_"
+      },
+      "source": [
+        "The warning above highlights an important distinction between the `simulate` and `run` methods:\n",
+        "\n",
+        "* `simulate` only executes the circuit once.\n",
+        "  -  Sampling from the resulting state is fast, but if there are intermediate measurements the final state vector depends on the results of those measurements.\n",
+        "* `run` will execute the circuit once for each repetition requested.\n",
+        "  -  As a result, sampling is much slower, but intermediate measurements are re-sampled for each repetition. If there are no intermediate measurements, `run` redirects to `simulate` for faster execution.\n",
+        "\n",
+        "The warning goes away if intermediate measurements are present:"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "hFrwYjWM0Hpa"
+      },
+      "outputs": [],
+      "source": [
+        "# Define a circuit with intermediate measurements.\n",
+        "q0 = cirq.LineQubit(0)\n",
+        "circuit = cirq.Circuit(\n",
+        "    cirq.X(q0)**0.5, cirq.measure(q0, key='m0'),\n",
+        "    cirq.X(q0)**0.5, cirq.measure(q0, key='m1'),\n",
+        "    cirq.X(q0)**0.5, cirq.measure(q0, key='m2'),\n",
+        ")\n",
+        "print(\"Circuit:\")\n",
+        "print(circuit)\n",
+        "print()\n",
+        "\n",
+        "# Simulate the circuit with qsim and return just the measurement values.\n",
+        "print('qsim results:')\n",
+        "qsim_simulator = qsimcirq.QSimSimulator()\n",
+        "qsim_results = qsim_simulator.run(circuit, repetitions=5)\n",
+        "print(qsim_results)"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "KhPHBKpi0lYE"
+      },
+      "source": [
+        "## Amplitude evaluation\n",
+        "\n",
+        "qsim can also calculate amplitudes for specific output bitstrings."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 4,
+      "metadata": {
+        "id": "aCbvXO6M1jWB",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 211
+        },
+        "outputId": "2b1d7224-e48f-4609-85c6-85bc5e9a88d7"
+      },
+      "outputs": [
+        {
+          "output_type": "error",
+          "ename": "NameError",
+          "evalue": "name 'cirq' is not defined",
+          "traceback": [
+            "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+            "\u001b[0;31mNameError\u001b[0m                                 Traceback (most recent call last)",
+            "\u001b[0;32m<ipython-input-4-3a665405b384>\u001b[0m in \u001b[0;36m<cell line: 0>\u001b[0;34m()\u001b[0m\n\u001b[1;32m      1\u001b[0m \u001b[0;31m# Define a simple circuit.\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m----> 2\u001b[0;31m \u001b[0mq0\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mq1\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mcirq\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mLineQubit\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mrange\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;36m2\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m      3\u001b[0m \u001b[0mcircuit\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mcirq\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mCircuit\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mcirq\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mH\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mq0\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mcirq\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mCX\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mq0\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mq1\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      4\u001b[0m \u001b[0mprint\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m\"Circuit:\"\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      5\u001b[0m \u001b[0mprint\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mcircuit\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;31mNameError\u001b[0m: name 'cirq' is not defined"
+          ]
+        }
+      ],
+      "source": [
+        "# Define a simple circuit.\n",
+        "q0, q1 = cirq.LineQubit.range(2)\n",
+        "circuit = cirq.Circuit(cirq.H(q0), cirq.CX(q0, q1))\n",
+        "print(\"Circuit:\")\n",
+        "print(circuit)\n",
+        "print()\n",
+        "\n",
+        "# Simulate the circuit with qsim and return the amplitudes for |00) and |01).\n",
+        "print('Cirq results:')\n",
+        "cirq_simulator = cirq.Simulator()\n",
+        "cirq_results = cirq_simulator.compute_amplitudes(\n",
+        "    circuit, bitstrings=[0b00, 0b01])\n",
+        "print(cirq_results)\n",
+        "print()\n",
+        "\n",
+        "# Simulate the circuit with qsim and return the amplitudes for |00) and |01).\n",
+        "print('qsim results:')\n",
+        "qsim_simulator = qsimcirq.QSimSimulator()\n",
+        "qsim_results = qsim_simulator.compute_amplitudes(\n",
+        "    circuit, bitstrings=[0b00, 0b01])\n",
+        "print(qsim_results)"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "zy5XRdkm219l"
+      },
+      "source": [
+        "## Performance benchmark\n",
+        "\n",
+        "The code below generates a depth-16 circuit on a 4x5 qubit grid, then runs it against the basic Cirq simulator. For a circuit of this size, the difference in runtime can be significant - try it out!"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "SyRpm08R3qCy"
+      },
+      "outputs": [],
+      "source": [
+        "import time\n",
+        "\n",
+        "# Get a rectangular grid of qubits.\n",
+        "qubits = cirq.GridQubit.rect(4, 5)\n",
+        "\n",
+        "# Generates a random circuit on the provided qubits.\n",
+        "circuit = cirq.experiments.random_rotations_between_grid_interaction_layers_circuit(\n",
+        "    qubits=qubits, depth=16)\n",
+        "\n",
+        "# Simulate the circuit with Cirq and print the runtime.\n",
+        "cirq_simulator = cirq.Simulator()\n",
+        "cirq_start = time.time()\n",
+        "cirq_results = cirq_simulator.simulate(circuit)\n",
+        "cirq_elapsed = time.time() - cirq_start\n",
+        "print(f'Cirq runtime: {cirq_elapsed} seconds.')\n",
+        "print()\n",
+        "\n",
+        "# Simulate the circuit with qsim and print the runtime.\n",
+        "qsim_simulator = qsimcirq.QSimSimulator()\n",
+        "qsim_start = time.time()\n",
+        "qsim_results = qsim_simulator.simulate(circuit)\n",
+        "qsim_elapsed = time.time() - qsim_start\n",
+        "print(f'qsim runtime: {qsim_elapsed} seconds.')"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "OUjhKoRVZGKZ"
+      },
+      "source": [
+        "qsim performance can be tuned further by passing options to the simulator constructor. These options use the same format as the qsim_base binary - a full description can be found in the qsim [usage doc](https://github.com/quantumlib/qsim/blob/master/docs/usage.md). The example below demonstrates enabling multithreading in qsim; for best performance, use the same number of threads as the number of cores (or virtual cores) on your machine."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "yE6ZXAKzZL5P"
+      },
+      "outputs": [],
+      "source": [
+        "# Use eight threads to parallelize simulation.\n",
+        "options = {'t': 8}\n",
+        "\n",
+        "qsim_simulator = qsimcirq.QSimSimulator(options)\n",
+        "qsim_start = time.time()\n",
+        "qsim_results = qsim_simulator.simulate(circuit)\n",
+        "qsim_elapsed = time.time() - qsim_start\n",
+        "print(f'qsim runtime: {qsim_elapsed} seconds.')"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "HVkTbqfH4zls"
+      },
+      "source": [
+        "Another option is to adjust the maximum number of qubits over which to fuse gates. Increasing this value (as demonstrated below) increases arithmetic intensity, which may improve performance with the right environment settings."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "kkQ5ARpI5phJ"
+      },
+      "source": [
+        "# Increase maximum fused gate size to three qubits.\n",
+        "options = {'f': 3}\n",
+        "\n",
+        "qsim_simulator = qsimcirq.QSimSimulator(options)\n",
+        "qsim_start = time.time()\n",
+        "qsim_results = qsim_simulator.simulate(circuit)\n",
+        "qsim_elapsed = time.time() - qsim_start\n",
+        "print(f'qsim runtime: {qsim_elapsed} seconds.')"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "LgWOEMLKutsq"
+      },
+      "source": [
+        "## Advanced applications: Distributed execution\n",
+        "\n",
+        "qsimh (qsim-hybrid) is a second library in the qsim repository that takes a slightly different approach to circuit simulation. When simulating a quantum circuit, it's possible to simplify the execution by decomposing a subset of two-qubit gates into pairs of one-qubit gates with shared indices. This operation is called \"slicing\" (or \"cutting\") the gates.\n",
+        "\n",
+        "qsimh takes advantage of the \"slicing\" operation by selecting a set of gates to \"slice\" and assigning each possible value of the shared indices across a set of executors running in parallel. By adding up the results afterwards, the total state can be recovered."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "t3OkT3FKuuhp"
+      },
+      "outputs": [],
+      "source": [
+        "# Pick a pair of qubits.\n",
+        "q0 = cirq.GridQubit(0, 0)\n",
+        "q1 = cirq.GridQubit(0, 1)\n",
+        "\n",
+        "# Create a circuit that entangles the pair.\n",
+        "circuit = cirq.Circuit(\n",
+        "    cirq.H(q0), cirq.CX(q0, q1), cirq.X(q1)\n",
+        ")\n",
+        "print(\"Circuit:\")\n",
+        "print(circuit)"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "KUAwCOGeu0wA"
+      },
+      "source": [
+        "In order to let qsimh know how we want to split up the circuit, we need to pass it some additional options. More detail on these can be found in the qsim [usage doc](https://github.com/quantumlib/qsim/blob/master/docs/usage.md), but the fundamentals are explained below."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "VXc-A8e7u262"
+      },
+      "outputs": [],
+      "source": [
+        "options = {}\n",
+        "\n",
+        "# 'k' indicates the qubits on one side of the cut.\n",
+        "# We'll use qubit 0 for this.\n",
+        "options['k'] = [0]\n",
+        "\n",
+        "# 'p' and 'r' control when values are assigned to cut indices.\n",
+        "# There are some intricacies in choosing values for these options,\n",
+        "# but for now we'll set p=1 and r=0.\n",
+        "# This allows us to pre-assign the value of the CX indices\n",
+        "# and distribute its execution to multiple jobs.\n",
+        "options['p'] = 1\n",
+        "options['r'] = 0\n",
+        "\n",
+        "# 'w' indicates the value pre-assigned to the cut.\n",
+        "# This should change for each execution.\n",
+        "options['w'] = 0\n",
+        "\n",
+        "# Create the qsimh simulator with those options.\n",
+        "qsimh_simulator = qsimcirq.QSimhSimulator(options)\n",
+        "results_0 = qsimh_simulator.compute_amplitudes(\n",
+        "    circuit, bitstrings=[0b00, 0b01, 0b10, 0b11])\n",
+        "print(results_0)"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "eij3DsN4u5Om"
+      },
+      "source": [
+        "Now to run the other side of the cut..."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "py6I1omau6Gk"
+      },
+      "outputs": [],
+      "source": [
+        "options['w'] = 1\n",
+        "\n",
+        "qsimh_simulator = qsimcirq.QSimhSimulator(options)\n",
+        "results_1 = qsimh_simulator.compute_amplitudes(\n",
+        "    circuit, bitstrings=[0b00, 0b01, 0b10, 0b11])\n",
+        "print(results_1)"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "wnjmLDedu7j4"
+      },
+      "source": [
+        "...and add the two together. The results of a normal qsim simulation are shown for comparison."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "YQoyZ6ldu7--"
+      },
+      "outputs": [],
+      "source": [
+        "results = [r0 + r1 for r0, r1 in zip(results_0, results_1)]\n",
+        "print(\"qsimh results:\")\n",
+        "print(results)\n",
+        "\n",
+        "qsim_simulator = qsimcirq.QSimSimulator()\n",
+        "qsim_simulator.compute_amplitudes(circuit, bitstrings=[0b00, 0b01, 0b10, 0b11])\n",
+        "print(\"qsim results:\")\n",
+        "print(results)"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "{\n",
+        "  \"customer_data\": {\n",
+        "    \"customer_type\": \"MERCHANT\",\n",
+        "    \"person_details\": {\n",
+        "      \"identity_documents\": [\n",
+        "        {\n",
+        "          \"partial_value\": False\n",
+        "        }\n",
+        "      ]\n",
+        "    }\n",
+        "  }\n",
+        "}"
+      ],
+      "metadata": {
+        "id": "sKG7_yTAR4eN"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "o11JcJJ8vEfW"
+      },
+      "source": [
+        "The key point to note here is that `results_0` and `results_1` are completely independent - they can be run in parallel on two separate machines, with no communication between the two. Getting the full result requires `2^p` executions, but each individual result is much cheaper to calculate than trying to do the whole circuit at once."
+      ]
+    }
+  ],
+  "metadata": {
+    "colab": {
+      "name": "qsimcirq.ipynb",
+      "toc_visible": true,
+      "provenance": [],
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "display_name": "Python 3",
+      "name": "python3"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 0
+}
